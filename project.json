@@ -85,6 +85,9 @@
         [
             "layout",
             "level_1.json",
+            "level_2.json",
+            "level_3.json",
+            "loss.json",
             "win.json"
         ],
         [
@@ -112,8 +115,8 @@
                 "type": "atlas",
                 "description": "create atlas file with all textures for the game",
                 "name": "atlas",
-                "width": 512,
-                "height": 512,
+                "width": 2048,
+                "height": 2048,
                 "src": "./img/*.*",
                 "dst": "build_res/",
                 "format": "short",

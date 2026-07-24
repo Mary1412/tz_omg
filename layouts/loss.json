@@ -3,13 +3,13 @@
     "__color": "#28362f",
     "name": "win",
     "__alpha": 0.8,
+    "__alphaDeep": 0,
     "__size": [
       2,
       2,
       1,
       1
     ],
-    "__text": {},
     "__keyframes": {
       "loop": 0,
       "__loopDisabled": 1,
@@ -201,6 +201,46 @@
                   ]
                 }
               }
+            }
+          }
+        }
+      },
+      "button": {
+        "__color": "#832aa0",
+        "__img": "circle1",
+        "sva": 1.3,
+        "__corner": [
+          11,
+          11
+        ],
+        "__size": [
+          321,
+          94
+        ],
+        "__scaleF": 0,
+        "__text": {
+          "__text": "try_again"
+        },
+        "__keyframes": {
+          "loop": 0,
+          "__loopDisabled": 1,
+          "__easing": 27,
+          "__track": {
+            "__transform": {
+              "0": [
+                0,
+                307.166,
+                0,
+                0,
+                0
+              ],
+              "84": [
+                0,
+                0,
+                1,
+                1,
+                0
+              ]
             }
           }
         }

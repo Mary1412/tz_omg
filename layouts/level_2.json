@@ -7,7 +7,7 @@
     ],
     "__childs": {
       "sky": {
-        "__color": "#ededed",
+        "__color": 0.9294,
         "__img": "sky",
         "__size": [
           1,
@@ -135,7 +135,7 @@
             },
             "__img": "box_c",
             "__ofs": [
-              199,
+              90,
               154
             ]
           },
@@ -150,24 +150,8 @@
               "__bodyType": 0
             },
             "__img": "box_c",
-            "__ofs": [
-              89,
-              243
-            ]
-          },
-          "_4": {
-            "__physics": {
-              "__isStatic": false,
-              "__friction": 10,
-              "__frictionAir": 1,
-              "__frictionStatic": 50,
-              "__restitution": 0,
-              "__density": 1,
-              "__bodyType": 0
-            },
-            "__img": "box_c",
             "__size": [
-              99,
+              117,
               89
             ],
             "__ofs": [
@@ -175,7 +159,7 @@
               242
             ]
           },
-          "_5": {
+          "_4": {
             "__physics": {
               "__isStatic": false,
               "__friction": 10,
@@ -191,7 +175,7 @@
               85
             ],
             "__ofs": [
-              248,
+              185,
               244
             ]
           },
@@ -221,6 +205,42 @@
             "__ofs": [
               530,
               -49
+            ]
+          },
+          "_6": {
+            "__physics": {
+              "__isStatic": false,
+              "__friction": 10,
+              "__frictionAir": 1,
+              "__frictionStatic": 50,
+              "__restitution": 0,
+              "__density": 1,
+              "__bodyType": 1
+            },
+            "__img": "box_c",
+            "__size": [
+              113,
+              85
+            ],
+            "__ofs": [
+              6,
+              244
+            ]
+          },
+          "_7": {
+            "__physics": {
+              "__isStatic": false,
+              "__friction": 10,
+              "__frictionAir": 1,
+              "__frictionStatic": 50,
+              "__restitution": 0,
+              "__density": 1,
+              "__bodyType": 0
+            },
+            "__img": "box_c",
+            "__ofs": [
+              313,
+              154
             ]
           }
         }
