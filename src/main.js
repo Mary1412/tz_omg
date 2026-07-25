@@ -75,9 +75,8 @@ function addBreakBlock(x, y, velocity){
 }
 
 function awakeBlocks(){
-
     $each(blocks, b => {
-        b.__ph_awake();
+        if (b && b.__ph_awake) b.__ph_awake();
     });
 }
 
@@ -87,7 +86,9 @@ function removeBlock(block){
 
     block.__removeFromParent();
 
-    looperPostOne(awakeBlocks);
+    if (block.__needBreaks) {
+        looperPostOne(awakeBlocks);
+    }
     
     
     if (block.__needBreaks) {
@@ -122,11 +123,14 @@ function removeBlock(block){
 
 }
 
-function initCollision(body, node, hp){
+function initCollision(body, node, hp, isRealBlock){
     blocks.push(node);
     body.__hp = hp;
-    body.__onCollision = (speed) => {
+    body.__onCollision = (speed, partnerNode) => {
         var dmg = floor(clamp((speed - 1) * (speed - 2), 0, 100));
+        if (speed > 1.2) {
+            dmg = 100;
+        }
         if (dmg && body.__hp) {
             // consoleLog('damage', dmg);
             body.__hp = mmax(0, body.__hp - dmg);
@@ -220,7 +224,36 @@ function show_loss() {
 
 }
 
+function checkBulletStop(bullet) {
+    if (!bullet || bullet.__destructed) return;
+
+    var body = bullet.__ph_body;
+    if (body) {
+        var v = body.velocity;
+        var speed = Math.sqrt(v.x * v.x + v.y * v.y);
+
+        if (speed < 0.2) {
+            bullet.__removeFromParent();
+            
+            if (stones === 0 && big_blocks > 0 && !windowManager.__hasOpenedWindow()) {
+                show_loss();
+            }
+            return;
+        }
+    }
+
+    looperPost(() => {
+        checkBulletStop(bullet);
+    });
+}
+
 function initLevel(num_level=1){
+
+    if (level) {
+        if (level.__close) level.__close();
+        if (level.__removeFromParent) level.__removeFromParent();
+        level = null;
+    }
 
     name_level="level_"+num_level;
     big_blocks = 0;
@@ -248,7 +281,7 @@ function initLevel(num_level=1){
                     rubber.__killAllAnimations();
                 },
                 __dragEnd() {
-
+                    if (stones <= 0) return;
                     playSound('punch');
 
                     stones--;
@@ -281,12 +314,14 @@ function initLevel(num_level=1){
                     }
 
                     // пуля исчезает через 2 сек
-                    _setTimeout(() => {
+                   /* _setTimeout(() => {
                         bullet.__removeFromParent();
                         if (stones === 0 && big_blocks > 0) {
                             show_loss();
                         }
-                    }, 2);
+                    }, 2);*/
+
+                    checkBulletStop(bullet);
 
                 }
             }
@@ -319,6 +354,8 @@ function initLevel(num_level=1){
                 node.__needBreaks = 1;
                 big_blocks++;
                 initCollision(body, node, 100);
+
+                body.isSleeping = true;
             }
         });
 
