@@ -96,13 +96,22 @@ function removeBlock(block){
         playSound('break_' + randomInt(1, 4), 0, 0, 0.5);
         
         var step = 50,
-            bx = block.__x - size.x/2, 
-            by = block.__y - size.y/2;
+        bx = block.__x, 
+        by = block.__y,
+        sizeX = size.x,
+        sizeY = size.y;
+       
+        var angleRad = (block.__rotate || 0) * (Math.PI / 180);
+        var cosA = Math.cos(angleRad);
+        var sinA = Math.sin(angleRad);
 
-        // todo: не учитывается вращение блока
-        for (var x = 0; x < size.x; x += step) {
-            for (var y = 0; y < size.y; y += step) {
-                addBreakBlock(bx + x, by + y, v);
+       
+        for  (var x = -sizeX / 2 + step / 2; x < sizeX / 2; x += step) {
+            for (var y = -sizeY / 2 + step / 2; y < sizeY / 2; y += step) {
+                var rotatedX = bx + (x * cosA - y * sinA);
+                var rotatedY = by + (x * sinA + y * cosA);
+
+                addBreakBlock(rotatedX, rotatedY, v);
             }
         }
 
@@ -183,11 +192,12 @@ function show_win() {
 
             button_1: {
                 __onTap(){
-                    // todo: стартовать другой уровень?
                     num_level++;
                     if (wnd && wnd.__close) wnd.__close();
+                    if (num_level>3){
+                        num_level=1;
+                    }
                     initLevel(num_level);
-                    //consoleLog("not implemented")
                 },
                 __onTapHighlight: 1
             },
@@ -224,7 +234,7 @@ function show_loss() {
 
 }
 
-function checkBulletStop(bullet) {
+function check_bullet(bullet) {
     if (!bullet || bullet.__destructed) return;
 
     var body = bullet.__ph_body;
@@ -243,7 +253,7 @@ function checkBulletStop(bullet) {
     }
 
     looperPost(() => {
-        checkBulletStop(bullet);
+        check_bullet(bullet);
     });
 }
 
@@ -321,7 +331,7 @@ function initLevel(num_level=1){
                         }
                     }, 2);*/
 
-                    checkBulletStop(bullet);
+                    check_bullet(bullet);
 
                 }
             }
