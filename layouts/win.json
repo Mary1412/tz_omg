@@ -9,7 +9,9 @@
       1,
       1
     ],
-    "__text": {},
+    "__text": {
+      "__color": 0
+    },
     "__keyframes": {
       "loop": 0,
       "__loopDisabled": 1,
@@ -37,18 +39,26 @@
       }
     },
     "__childs": {
-      "title": {
-        "sva": 0.9,
+      "fon": {
+        "__img": "ui_fon",
         "__size": [
-          431,
-          90
+          509,
+          680
         ],
-        "__scaleF": 0,
-        "__text": {
-          "__fontsize": 80,
-          "__text": "You Win!"
-        },
-        "__y": -154,
+        "__scaley": 1.1,
+        "__text": {},
+        "__y": 14
+      },
+      "title": {
+        "__img": "win_0",
+        "__size": [
+          421,
+          285
+        ],
+        "__ofs": [
+          -1,
+          -183
+        ],
         "__keyframes": {
           "loop": 0,
           "__loopDisabled": 1,
@@ -57,14 +67,14 @@
             "__transform": {
               "0": [
                 0,
-                -327.829,
+                -183,
                 0,
                 0,
                 0
               ],
-              "73": [
+              "84": [
                 0,
-                -154,
+                -183,
                 1,
                 1,
                 0
@@ -77,6 +87,11 @@
         "__size": [
           297,
           68
+        ],
+        "__ofs": [
+          23,
+          -58,
+          -100
         ],
         "__childs": {
           "_0": {
@@ -204,6 +219,105 @@
             }
           }
         }
+      },
+      "button_2": {
+        "__color": "#c82e0e",
+        "__img": "circle1",
+        "sva": 1.3,
+        "__corner": [
+          11,
+          11
+        ],
+        "__size": [
+          321,
+          94
+        ],
+        "__scaleF": 0,
+        "__text": {
+          "__text": "try_again"
+        },
+        "__ofs": [
+          0,
+          50,
+          -100
+        ],
+        "__keyframes": {
+          "loop": 0,
+          "__loopDisabled": 1,
+          "__easing": 27,
+          "__track": {
+            "__transform": {
+              "0": [
+                0,
+                307.166,
+                0,
+                0,
+                0
+              ],
+              "84": [
+                0,
+                50,
+                1,
+                1,
+                0
+              ]
+            }
+          }
+        }
+      },
+      "button_1": {
+        "__color": "#4eaf23",
+        "__img": "circle1",
+        "sva": 1.3,
+        "__corner": [
+          11,
+          11
+        ],
+        "__size": [
+          321,
+          94
+        ],
+        "__scaleF": 0,
+        "__text": {
+          "__text": "next"
+        },
+        "__keyframes": {
+          "loop": 0,
+          "__loopDisabled": 1,
+          "__easing": 27,
+          "__track": {
+            "__transform": {
+              "0": [
+                0,
+                -70,
+                0,
+                0,
+                0
+              ],
+              "84": [
+                0,
+                -70,
+                1,
+                1,
+                0
+              ]
+            }
+          }
+        }
+      },
+      "score": {
+        "__text": {
+          "__color": 0,
+          "__fontsize": 37,
+          "__fontspacing": 2,
+          "__text": "счёт",
+          "__smallCaps": 1,
+          "__fontWeight": 2
+        },
+        "__ofs": [
+          4,
+          50
+        ]
       }
     }
   }

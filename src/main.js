@@ -6,7 +6,10 @@ options.__soundDisabled = 0;
 var level
     , rubber
     , blocks = []
-    , big_blocks = 0;
+    , big_blocks = 0
+    , num_level=1
+    , name_level="";
+    
 
 function looperPostOne(f, delay) {
     if (f.__posted > 0) {
@@ -141,24 +144,34 @@ function show_win() {
     showWindow('win', wnd => {
         wnd.__setAliasesData({
 
-            button: {
+            button_1: {
                 __onTap(){
                     // todo: стартовать другой уровень?
-                    consoleLog("not implemented")
+                    num_level++;
+                    initLevel(num_level);
+                    //consoleLog("not implemented")
+                },
+                __onTapHighlight: 1
+            },
+            button_2: {
+                __onTap(){
+                    initLevel(num_level);
                 },
                 __onTapHighlight: 1
             }
+
 
         })
     })
 
 }
 
-function initLevel(){
+function initLevel(num_level=1){
 
+    name_level="level_"+num_level;
     // добавляем первый уровень на сцену
     level = scene
-        .__addChildBox('level_1')
+        .__addChildBox(name_level)
         .__setAliasesData({
 
             rubber(node) {
@@ -187,7 +200,7 @@ function initLevel(){
                     var wp = this.__worldPosition
                         , bullet = level.__addChildBox({
                             __effect: 'tail',
-                            __img: 'circle1',
+                            __img: 'stone',
                             __size: [28, 28],
                             __ofs: [wp.x, wp.y, -20],
                             __physics: {
@@ -249,7 +262,7 @@ function initLevel(){
 
 BUS.__addEventListener(
     __ON_GAME_LOADED, a => {
-        initLevel();
+        initLevel(1);
         return 1;
     }
 );
