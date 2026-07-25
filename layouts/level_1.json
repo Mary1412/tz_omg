@@ -7,7 +7,7 @@
     ],
     "__childs": {
       "sky": {
-        "__color": "#ededed",
+        "__color": 0.9294,
         "__img": "sky",
         "__size": [
           1,
@@ -22,6 +22,11 @@
               199,
               51
             ],
+            "__text": {
+              "__color": 0,
+              "__fontsize": 18,
+              "__fontWeight": 2
+            },
             "__ofs": [
               308,
               -330
@@ -33,6 +38,11 @@
               199,
               51
             ],
+            "__text": {
+              "__color": 0,
+              "__fontsize": 18,
+              "__fontWeight": 2
+            },
             "__ofs": [
               -424,
               -330

@@ -8,7 +8,9 @@ var level
     , blocks = []
     , big_blocks = 0
     , num_level=1
-    , name_level="";
+    , name_level=""
+    , score = 0
+    , stones=3;
     
 
 function looperPostOne(f, delay) {
@@ -103,7 +105,10 @@ function removeBlock(block){
             }
         }
 
+        score+=10;
+        updateScore();
         big_blocks--;
+
         if (big_blocks == 0) {
             _setTimeout(() => {
                 show_win();
@@ -144,10 +149,17 @@ function show_win() {
     showWindow('win', wnd => {
         wnd.__setAliasesData({
 
+            score: {
+                __text: {
+                    __text: "СЧЁТ: " + score
+                }
+            },
+
             button_1: {
                 __onTap(){
                     // todo: стартовать другой уровень?
                     num_level++;
+                    if (wnd && wnd.__close) wnd.__close();
                     initLevel(num_level);
                     //consoleLog("not implemented")
                 },
@@ -155,6 +167,7 @@ function show_win() {
             },
             button_2: {
                 __onTap(){
+                    if (wnd && wnd.__close) wnd.__close();
                     initLevel(num_level);
                 },
                 __onTapHighlight: 1
@@ -166,9 +179,32 @@ function show_win() {
 
 }
 
+
+function show_loss() {
+
+    playSound('win');
+    showWindow('loss', wnd => {
+        wnd.__setAliasesData({
+
+            button_2: {
+                __onTap(){
+                    if (wnd && wnd.__close) wnd.__close();
+                    initLevel(num_level);
+                },
+                __onTapHighlight: 1
+            }
+        })
+    })
+
+}
+
 function initLevel(num_level=1){
 
     name_level="level_"+num_level;
+    big_blocks = 0;
+    blocks = [];
+    score = 0;
+    stones = 3;
     // добавляем первый уровень на сцену
     level = scene
         .__addChildBox(name_level)
@@ -192,6 +228,9 @@ function initLevel(num_level=1){
                 __dragEnd() {
 
                     playSound('punch');
+
+                    stones--;
+                    updateStones();
 
                     // отпускаем резинку
                     rubber.__anim({
@@ -222,6 +261,9 @@ function initLevel(num_level=1){
                     // пуля исчезает через 2 сек
                     _setTimeout(() => {
                         bullet.__removeFromParent();
+                        if (stones === 0 && big_blocks > 0) {
+                            show_loss();
+                        }
                     }, 2);
 
                 }
@@ -231,6 +273,8 @@ function initLevel(num_level=1){
 
     _setTimeout(a => {
         level.update(1);
+        updateScore(); 
+        updateStones(); 
 
         // настраиваем коллизии для отработки повреждения блоков
         ph_Events.on(ph_Engine, 'collisionStart', (event) => {
@@ -259,6 +303,29 @@ function initLevel(num_level=1){
     }, 0.01);
 }
 
+function updateScore() {
+    if (level && level.__setAliasesData) {
+        level.__setAliasesData({
+            score: {
+                __text: {
+                    __text: "СЧЁТ: " + score
+                }
+            }
+        });
+    }
+}
+
+function updateStones() {
+    if (level && level.__setAliasesData) {
+        level.__setAliasesData({
+            stones: {
+                __text: {
+                    __text: "КАМНИ: " + stones+" /3"
+                }
+            }
+        });
+    }
+}
 
 BUS.__addEventListener(
     __ON_GAME_LOADED, a => {
