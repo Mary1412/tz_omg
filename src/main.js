@@ -146,12 +146,34 @@ function show_win() {
     playSound('win');
 
     // todo: посчитать очки игрока и выдать звезды
+
+    if (stones > 0) {
+        var bonus = stones * 30;
+        score += bonus;
+    }
+    
     showWindow('win', wnd => {
         wnd.__setAliasesData({
 
             score: {
                 __text: {
                     __text: "СЧЁТ: " + score
+                }
+            },
+
+            _0: function(node) {
+                if (node && score < 50) {
+                    node.__removeFromParent();
+                }
+            },
+            _1: function(node) {
+                if (node && score < 80) {
+                    node.__removeFromParent();
+                }
+            },
+            _2: function(node) {
+                if (node && score < 110) {
+                    node.__removeFromParent();
                 }
             },
 
