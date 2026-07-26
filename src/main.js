@@ -12,6 +12,7 @@ var level
     , score = 0
     , stones=3;
     
+    
 
 function looperPostOne(f, delay) {
     if (f.__posted > 0) {
@@ -218,7 +219,7 @@ function show_win() {
 
 function show_loss() {
 
-    playSound('win');
+    playSound('loss');
     showWindow('loss', wnd => {
         wnd.__setAliasesData({
 
