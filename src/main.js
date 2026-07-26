@@ -286,9 +286,35 @@ function initLevel(num_level=1){
                     var dmouse = this.__dmouse = this.__worldPosition.__clone().sub(new Vector2(x, y));
                     rubber.__parent.__rotate = -dmouse.__angle() * RAD2DEG;
                     rubber.__width = dmouse.__length();
+
+                    if (this.__visualHolder) {
+                        this.__visualHolder.__ofs = [x, y, -16]; 
+                    }
+
+                    if (this.__visualBullet) {
+                        this.__visualBullet.__ofs = [x, y, -20]; 
+                    }
                 },
                 __dragStart() {
                     rubber.__killAllAnimations();
+
+                    var holder = rubber.__parent;
+                    holder.__alpha = 0; 
+
+                    if (stones > 0) {
+
+                        this.__visualHolder = level.__addChildBox({
+                            __img: 'rubber_2', 
+                            __size:[39,39],   
+                            __ofs: [65, 3, -25]
+                        });
+
+                        this.__visualBullet = level.__addChildBox({
+                            __img: 'stone',
+                            __size:[28,28],
+                            __ofs: [65, 3, -20] 
+                        });
+                    }
                 },
                 __dragEnd() {
                     if (stones <= 0) return;
@@ -296,6 +322,21 @@ function initLevel(num_level=1){
 
                     stones--;
                     updateStones();
+
+                    
+
+                    if (this.__visualBullet) {
+                        this.__visualBullet.__removeFromParent();
+                        this.__visualBullet = null;
+                    }
+
+                    if (this.__visualHolder) {
+                        this.__visualHolder.__removeFromParent();
+                        this.__visualHolder = null;
+                    }
+
+                    var holder = rubber.__parent;
+                    holder.__alpha = 1;
 
                     // отпускаем резинку
                     rubber.__anim({
